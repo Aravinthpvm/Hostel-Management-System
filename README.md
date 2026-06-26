@@ -51,7 +51,7 @@ The Hostel Management System is designed to streamline hostel operations with fe
 
 ### Backend
 - **Framework**: Spring Boot 3.2.0
-- **Database**: MongoDB
+- **Database**: MySQL
 - **Security**: Spring Security with JWT
 - **Authentication**: JSON Web Tokens (JWT)
 - **Build Tool**: Maven
@@ -75,7 +75,7 @@ hostel-management-backend/
 │       │   ├── controller/      # REST API controllers
 │       │   ├── dto/             # Data Transfer Objects
 │       │   ├── exception/       # Custom exceptions & handlers
-│       │   ├── model/           # MongoDB entities
+│       │   ├── model/           # JPA entities
 │       │   ├── repository/      # Data access layer
 │       │   ├── service/         # Business logic
 │       │   └── util/            # JWT utilities
@@ -130,7 +130,7 @@ hostel-management-frontend/
 ### Prerequisites
 - Java 17 or higher
 - Node.js 16 or higher
-- MongoDB (running on localhost:27017)
+- MySQL 8 or higher (running on localhost:3306)
 - Maven
 
 ### Backend Setup
@@ -140,9 +140,11 @@ hostel-management-frontend/
 cd hostel-management-backend
 ```
 
-2. Update database configuration in `application.properties` if needed:
+2. Create a MySQL database user/database if needed. By default, the app uses:
 ```properties
-spring.data.mongodb.uri=mongodb://localhost:27017/hostel_management
+spring.datasource.url=jdbc:mysql://localhost:3306/hostel_management?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata
+spring.datasource.username=root
+spring.datasource.password=
 ```
 
 3. Build and run the application:
@@ -223,9 +225,11 @@ Frontend will start on `http://localhost:3000`
 ### Backend (application.properties)
 ```properties
 server.port=8080
-spring.data.mongodb.uri=mongodb://localhost:27017/hostel_management
-jwt.secret=your-secret-key-here (change in production)
-jwt.expiration=86400000
+spring.datasource.url=${MYSQL_URL:jdbc:mysql://localhost:3306/hostel_management?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata}
+spring.datasource.username=${MYSQL_USERNAME:root}
+spring.datasource.password=${MYSQL_PASSWORD:}
+jwt.secret=${JWT_SECRET:your-secret-key-here}
+jwt.expiration=${JWT_EXPIRATION:86400000}
 ```
 
 ### Frontend (API base URL)

@@ -5,7 +5,7 @@
 ### Backend (Spring Boot)
 - ✅ Complete Maven project with all dependencies
 - ✅ User authentication with JWT tokens
-- ✅ MongoDB integration
+- ✅ MySQL integration
 - ✅ 6 Enum classes (UserRole, RoomStatus, BookingStatus, etc.)
 - ✅ User model and repository
 - ✅ Auth service with register/login endpoints
@@ -26,18 +26,15 @@
 
 ## 🚀 Next Steps - To Run the Application
 
-### Step 1: Start MongoDB
-Open a terminal and run:
-```bash
-mongod
-```
+### Step 1: Start MySQL
+Make sure MySQL is running on port 3306.
 
-Leave this terminal open. MongoDB should be running on port 27017.
+The backend uses the `hostel_management` database by default and can create it automatically when the configured MySQL user has permission.
 
 ### Step 2: Start Backend
 Open a **new terminal** and run:
 ```bash
-cd "a:\Projects\Hostel Management System\hostel-management-backend"
+cd "a:\Projects\Hostel Management System\backend"
 mvn clean install
 mvn spring-boot:run
 ```
@@ -49,7 +46,7 @@ The backend will be available at: **http://localhost:8080**
 ### Step 3: Start Frontend
 Open **another new terminal** and run:
 ```bash
-cd "a:\Projects\Hostel Management System\hostel-management-frontend"
+cd "a:\Projects\Hostel Management System\frontend"
 npm start
 ```
 
@@ -89,7 +86,7 @@ A:\Projects\Hostel Management System\
 │   │   ├── controller/             # REST endpoints
 │   │   ├── dto/                    # Request/Response objects
 │   │   ├── exception/              # Error handling
-│   │   ├── model/                  # MongoDB entities
+│   │   ├── model/                  # JPA entities
 │   │   ├── repository/             # Data access
 │   │   ├── service/                # Business logic
 │   │   └── util/                   # JWT utilities
@@ -117,11 +114,11 @@ A:\Projects\Hostel Management System\
 
 ## 🔧 Troubleshooting
 
-### MongoDB Connection Error
+### MySQL Connection Error
 ```
-Error: MongoServerError: connect ECONNREFUSED
+Communications link failure
 ```
-**Solution**: Make sure MongoDB is running with `mongod` command
+**Solution**: Make sure MySQL is running and the username/password in `application.properties` or environment variables are correct.
 
 ### Port 8080 Already in Use
 **Solution**: Change port in `application.properties`:
@@ -163,7 +160,7 @@ server.port=8081
 
 ## 💡 Quick Tips
 
-1. **MongoDB**: Keep it running in a separate terminal
+1. **MySQL**: Keep the MySQL service running
 2. **Backend Logs**: Check terminal for API requests
 3. **Frontend Errors**: Open browser DevTools (F12)
 4. **JWT Token**: Stored in localStorage
@@ -172,18 +169,18 @@ server.port=8081
 ## 🎨 Customize
 
 ### Change Theme Colors
-Edit `hostel-management-frontend/tailwind.config.js`
+Edit `frontend/tailwind.config.js`
 
 ### Change API URL
-Edit `hostel-management-frontend/.env`:
+Edit `frontend/.env`:
 ```
 REACT_APP_API_URL=http://your-api-url/api
 ```
 
 ### Change JWT Secret
-Edit `hostel-management-backend/src/main/resources/application.properties`:
+Edit `backend/src/main/resources/application.properties`:
 ```properties
-jwt.secret=your-super-secret-key-here
+jwt.secret=${JWT_SECRET:your-super-secret-key-here}
 ```
 
 ## ✨ Summary

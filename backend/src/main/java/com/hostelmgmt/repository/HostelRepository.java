@@ -1,13 +1,13 @@
 package com.hostelmgmt.repository;
 
 import com.hostelmgmt.model.Hostel;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface HostelRepository extends MongoRepository<Hostel, String> {
+public interface HostelRepository extends JpaRepository<Hostel, String> {
     
     List<Hostel> findByOwnerId(String ownerId);
     
